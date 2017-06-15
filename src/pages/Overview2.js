@@ -128,7 +128,7 @@ class Overview2 extends Component {
 
         if (dimension) {
             router.push({
-                pathname: '/comparison/' + dimension,
+                pathname: '/overview/',
                 query: {
                     ...location.query,
                     value1: JSON.stringify({

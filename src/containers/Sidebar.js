@@ -15,6 +15,15 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Dashboard from 'material-ui/svg-icons/action/dashboard';
 import InsertChart from 'material-ui/svg-icons/editor/insert-chart';
 import MoveToInbox from 'material-ui/svg-icons/content/move-to-inbox';
+
+import Attachment from 'material-ui/svg-icons/file/attachment';
+
+
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+
+
+import Select from '../components/Select'
+
 const style = {
   backgroundColor: '#1c1f28',
     height: 50
@@ -58,6 +67,38 @@ class Sidebar extends Component {
             isOpen: props.isOpen
         })
     }
+
+
+
+    onDataSetChange = (dsname) => {
+
+        console.log(" data set change requested to " + dsname)
+
+        this.props.onChange(dsname)
+
+
+    }
+
+    getColor = (dsname) => {
+
+
+       if (!this.props.dsname) {
+          if (dsname === 'calendar')  {
+              return 'darkblue';
+          }
+          else {return null;}
+       }
+       else {
+           if (this.props.dsname === dsname)  {
+               return 'darkblue';
+           }
+           else {return null;}
+       }
+
+
+    }
+
+
 
     onSidebarToggle = () => {
         this.setState({
@@ -134,6 +175,22 @@ hideCalendarDate={true}
             width={260}
             open={isOpen}
         > <div className="sidebar-header">Whytes Analytics</div>
+
+            <Subheader className="subheader">datasets</Subheader>
+            <div className="views">
+                <Menu>
+                    <Link   ><MenuItem  onTouchTap={ () => this.onDataSetChange('calendar')}
+                        primaryText="Calendar" leftIcon={<Attachment className="icon"/>}
+                    style={{backgroundColor: this.getColor('calendar') }}
+                    /></Link>
+                    <Link > <MenuItem onTouchTap={ () => this.onDataSetChange('fiscal')}
+                                      primaryText="Fiscal" leftIcon={<Attachment className="icon"/>}
+                   style={{backgroundColor: this.getColor('fiscal') }}
+
+                    /></Link>
+                </Menu>
+            </div>
+
             <Subheader className="subheader">views</Subheader>
             <div className="views">
                 <Menu>

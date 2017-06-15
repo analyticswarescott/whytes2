@@ -4,6 +4,9 @@ import * as request from 'd3-request';
 import LinearProgress from 'material-ui/LinearProgress'
 import Filter from './Filter'
 
+
+
+
 class Data extends Component {
     constructor(props) {
         super(props)
@@ -30,7 +33,18 @@ class Data extends Component {
         } = props
 
         if (url !== this.state.url) {
+
+            this.setState({
+                loaded      : false
+            })
+
+
             request.csv(url, (error, data) => {
+
+                if(error) {
+                    console.log(error);
+                }
+
                 if (typeof preprocessor === 'function') {
                     data = preprocessor(data)
                 }
@@ -75,17 +89,20 @@ class Data extends Component {
 
         if (!loaded) {
             return (
-                <div className="loader">
-                <LinearProgress mode="indeterminate" />
-                <div className="text">Loading data, please wait...</div>
+
+                <div className="loader ">
+               {/* <LinearProgress mode="indeterminate" />*/}
+                <div className="text " >Loading data, please wait...</div>
                 </div>
+
+
             )
         }
 
         const data = { ...this.state, forceUpdate: this.forceUpdate }
 
         return (
-            <div className="data">
+            <div className="data transparent">
                 <Filter data={data}>
                     {React.Children.map(
                         this.props.children,

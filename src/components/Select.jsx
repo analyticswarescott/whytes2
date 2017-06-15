@@ -24,7 +24,7 @@ const Select = ({
             value={value}
             floatingLabelText={label}
             onChange={handler}
-            style={{color: '#fff'}}
+            //style={{color: '#fff'}}
             underlineStyle={{visibility: 'hidden'}}>
             {options && options.map((k, i) =>
                 <MenuItem className="menu-item" key={i} value={k} primaryText={k}/>

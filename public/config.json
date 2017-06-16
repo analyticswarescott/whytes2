@@ -1,0 +1,102 @@
+{
+  "datasets" : [
+    {
+      "dsname" : "calendar",
+      "url": "/blissbi_day_Q_A_M.csv",
+      "dimensions": [
+        "Year",
+        "Month",
+        "Day",
+        "Manager",
+        "Brand",
+        "Region",
+        "Category",
+        "Customer",
+        "Article",
+        "Division"
+      ],
+      "measures": [
+        "Gross_Sales",
+        "Gross_Margin",
+        "Netto_Sales",
+        "Quantity",
+        "Budget_Gross_Sales",
+        "Budget_Gross_Margin"
+      ],
+      "order": {
+        "Month": [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec"
+        ],
+        "Day": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ]
+      }
+    },
+
+    {
+      "dsname" : "fiscal",
+      "url": "/blissbi_day_Q_A_M_fiscal.csv",
+      "dimensions": [
+        "Year",
+        "Month",
+        "Day",
+        "Manager",
+        "Brand",
+        "Region",
+        "Category",
+        "Customer",
+        "Article",
+        "Division"
+      ],
+      "measures": [
+        "Gross_Sales",
+        "Gross_Margin",
+        "Netto_Sales",
+        "Quantity"
+      ],
+      "order": {
+        "Month": [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec"
+        ],
+        "Day": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ]
+      }
+    }
+
+  ]
+}

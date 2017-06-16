@@ -126,7 +126,7 @@ class Overview2 extends Component {
         const { location, router } = this.props
         const { dimension, value1, value2 } = items
 
-        if (dimension) {
+   //     if (dimension) {
             router.push({
                 pathname: '/overview/',
                 query: {
@@ -144,7 +144,7 @@ class Overview2 extends Component {
 
                 }
             })
-        }
+        //}
     }
 
     onClickHandler = (e, i, v) => {

@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Content from './Content'
 import Data    from './Data'
 import Sidebar from './Sidebar'
-import Topbar  from './Topbar'
+import Topbar  from './TopbarOld'
 
 import dataset from '../config.js'
 
@@ -100,13 +100,12 @@ class App extends Component {
                 dimensions={datasetie.dimensions}
                 measures={datasetie.measures}
                // aggregations={dataset.aggregations}
-                order={dataset.order}
+                order={datasetie.order}
                 preprocessor={dataset.preprocessor}
             >
                 <Sidebar dsname={this.state.dsname} isOpen={this.state.showSidebar} toggleSidebarHandler={this.toggleSidebar}
                          onDatasetChange={this.onDatasetChange.bind(this)}
                 />
-                <Topbar/>
                 <Content indent={this.state.showSidebar} >
                     {React.cloneElement(this.props.children)}
                 </Content>

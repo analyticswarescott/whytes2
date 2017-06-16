@@ -70,11 +70,11 @@ class Sidebar extends Component {
 
 
 
-    onDataSetChange = (dsname) => {
+    onDatasetChange = (dsname) => {
 
         console.log(" data set change requested to " + dsname)
 
-        this.props.onChange(dsname)
+        this.props.onDatasetChange(dsname)
 
 
     }
@@ -179,11 +179,11 @@ hideCalendarDate={true}
             <Subheader className="subheader">datasets</Subheader>
             <div className="views">
                 <Menu>
-                    <Link   ><MenuItem  onTouchTap={ () => this.onDataSetChange('calendar')}
+                    <Link   ><MenuItem  onTouchTap={ () => this.onDatasetChange('calendar')}
                         primaryText="Calendar" leftIcon={<Attachment className="icon"/>}
                     style={{backgroundColor: this.getColor('calendar') }}
                     /></Link>
-                    <Link > <MenuItem onTouchTap={ () => this.onDataSetChange('fiscal')}
+                    <Link > <MenuItem onTouchTap={ () => this.onDatasetChange('fiscal')}
                                       primaryText="Fiscal" leftIcon={<Attachment className="icon"/>}
                    style={{backgroundColor: this.getColor('fiscal') }}
 

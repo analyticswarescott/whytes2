@@ -315,7 +315,7 @@ class ChartWidget extends Component {
                             tickCount={takeTop}
                             tickLabelComponent={<VictoryLabel style={{fontSize: 10, padding: 5, color: '#fff', zIndex: 999}} text={
                                 function(d) {
-                                    return chartSet1.sets[0][d - 1].key;
+                                    return addCommas(chartSet1.sets[0][d - 1].key);
                                 }
                             } angle={0} /> }
                         />
@@ -341,7 +341,7 @@ class ChartWidget extends Component {
                                                                 flyoutStyle={{fill: '#1c1f28'}}
                                 text={
                                     function(d) {
-                                        return d.y.toFixed(0);
+                                        return addCommas(d.y.toFixed(0));
                                     }
                                 }
                                 />}

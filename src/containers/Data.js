@@ -90,10 +90,11 @@ class Data extends Component {
         if (!loaded) {
             return (
 
-                <div className="loader ">
+                <div className="loader">
                {/* <LinearProgress mode="indeterminate" />*/}
                 <div className="text " >Loading data, please wait...</div>
                 </div>
+
 
 
             )
@@ -102,7 +103,7 @@ class Data extends Component {
         const data = { ...this.state, forceUpdate: this.forceUpdate }
 
         return (
-            <div className="data transparent">
+            <div className="data ">
                 <Filter data={data}>
                     {React.Children.map(
                         this.props.children,

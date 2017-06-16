@@ -59,10 +59,24 @@ class App extends Component {
     }
 
 
-    onChange(value) {
+    onDatasetChange(value) {
         // parent class change handler is always called with field name and value
         this.setState({dsname: value});
     }
+
+
+
+    onValue1MeasureChange = (e, i, v) => this.update({ ...this.state, value1: { ...this.state.value1, measure: v } })
+    onValue1GroupChange   = (e, i, v) => this.update({ ...this.state, value1: { ...this.state.value1, group:   v } })
+    onValue1FilterChange  = (e, i, v) => this.update({ ...this.state, value1: { ...this.state.value1, filter:  v } })
+    onValue2MeasureChange = (e, i, v) => this.update({ ...this.state, value2: { ...this.state.value2, measure: v } })
+    onValue2GroupChange   = (e, i, v) => this.update({ ...this.state, value2: { ...this.state.value2, group:   v } })
+    onValue2FilterChange  = (e, i, v) => this.update({ ...this.state, value2: { ...this.state.value2, filter:  v } })
+
+
+
+
+
 
     render() {
 
@@ -90,8 +104,9 @@ class App extends Component {
                 preprocessor={dataset.preprocessor}
             >
                 <Sidebar dsname={this.state.dsname} isOpen={this.state.showSidebar} toggleSidebarHandler={this.toggleSidebar}
-                         onChange={this.onChange.bind(this)}
+                         onDatasetChange={this.onDatasetChange.bind(this)}
                 />
+                <Topbar/>
                 <Content indent={this.state.showSidebar} >
                     {React.cloneElement(this.props.children)}
                 </Content>

@@ -309,6 +309,7 @@ class Overview2 extends Component {
             <div className="charts row">
             <div className="col-sm-4 ">
                 <ChartWidget
+                    barWidth={15}
                     data={this.props.data}
                     filter={this.props.filter}
                  dimension="Month"
@@ -318,6 +319,7 @@ class Overview2 extends Component {
             </div>
                 <div className="col-sm-4 ">
                 <ChartWidget
+                    barWidth={15}
                     data={this.props.data}
                     filter={this.props.filter}
                     dimension="Manager"
@@ -328,6 +330,7 @@ class Overview2 extends Component {
             </div>
                 <div className="col-sm-4 ">
                     <ChartWidget
+                        barWidth={15}
                         data={this.props.data}
                         filter={this.props.filter}
                         dimension="Division"
@@ -342,11 +345,13 @@ class Overview2 extends Component {
 
 
 
+
 {/*row 2*/}
                 <div className="charts row">
 
                     <div className="col-sm-5 ">
                         <ChartWidget
+                            barWidth={15}
                             data={this.props.data}
                             filter={this.props.filter}
                             dimension="Category"
@@ -355,6 +360,7 @@ class Overview2 extends Component {
                             w={420}
                         />
                         <ChartWidget
+                            barWidth={15}
                             data={this.props.data}
                             filter={this.props.filter}
                             dimension="Brand"
@@ -363,6 +369,7 @@ class Overview2 extends Component {
                             w={420}
                         />
                         <ChartWidget
+                            barWidth={15}
                             data={this.props.data}
                             filter={this.props.filter}
                             dimension="Customer"
@@ -374,6 +381,7 @@ class Overview2 extends Component {
 
                     <div className="col-sm-6 ">
                         <ChartWidget
+                            barWidth={14}
                             data={this.props.data}
                             filter={this.props.filter}
                             dimension="Article"
@@ -385,7 +393,10 @@ class Overview2 extends Component {
                     </div>
                 </div>
 
+                <div className="charts row">
+                    <div className="col-sm-12 " style={{height: 200}}/>
 
+                </div>
 
 
                 </div>

@@ -1,15 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import Select from '../components/Select'
 import {groupReducer, chartReducer} from '../helpers/comparison'
-import Table from '../components/Table';
-import Totals from '../components/Totals';
 import { withRouter } from 'react-router'
 
 import {getIndex} from '../helpers/comparison'
 import {addCommas} from '../helpers/comparison'
 
-import {lightBlueA400, lightGreenA400, deepOrangeA400} from 'material-ui/styles/colors'
 import {
     VictoryBar,
     VictoryChart,
@@ -18,7 +13,8 @@ import {
     VictoryGroup,
     VictoryContainer,
     VictoryLabel,
-    VictoryTooltip
+    VictoryTooltip,
+    Line
 } from 'victory'
 
 const groupAll = 'All'
@@ -43,7 +39,7 @@ const axisStyle = {
     axis: {stroke: "#242632"},
     axisLabel: {fontSize: 16, padding: 20, fill: 'red'},
     grid: {stroke: "#242632"},
-    ticks: {stroke: "grey"},
+    ticks: {stroke: "#fff"},
     tickLabels: {fontSize: 10, padding: 5, color: '#fff', zIndex: 999}
 }
 class ChartWidget extends Component {
@@ -156,9 +152,6 @@ class ChartWidget extends Component {
 
     onClickHandler = (e, i, v) => {
 
-        console.log(" ========== ChartWidget handling click");
-
-
         const filter = i.data[v].key
         const { filters, filterHandler } = this.props.filter
         const { dimension }  = this.props
@@ -183,7 +176,7 @@ class ChartWidget extends Component {
     }
 
     render() {
-        const { data, params, filter, dimension, top, horizontal, h, w } = this.props
+        const { data, params, filter, dimension, top, horizontal, h, w, barWidth, totalOnly } = this.props
 
         console.log(dimension);
 
@@ -192,6 +185,9 @@ class ChartWidget extends Component {
         const value = (v) => v.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
         let chartSet1 = []
         let chartSet2 = []
+
+        let chartSet3= []
+
         let tableSet = []
         let totalSet = []
 
@@ -213,19 +209,17 @@ class ChartWidget extends Component {
             if (top) {takeTop = top} else {takeTop = 15;}
 
             chartSet1 = cReducer(dimGroup1.top(takeTop))
-            chartSet2 = dimGroup2.all().reduce((k, v) => {
-                k[0].value += +v.value.value1 || 0
-                k[1].value += +v.value.value2 || 0
-                return k
-            }, [
-                {key: (value1.filter && value1.filter !== value2.filter ? value1.filter : value1.measure), value: 0},
-                {key: (value2.filter && value2.filter !== value1.filter ? value2.filter : value2.measure), value: 0}
-            ])
 
-            chartSet2[0]['label'] = value(chartSet2[0].value)
-            chartSet2[0]['fill']  =  lightBlueA400
-            chartSet2[1]['label'] = value(chartSet2[1].value)
-            chartSet2[1]['fill']  = chartSet2[0].value < chartSet2[1].value ? lightGreenA400 : (chartSet2[0].value > chartSet2[1].value) ? deepOrangeA400 : lightBlueA400
+            chartSet2 = cReducer(dimGroup2.all())
+            chartSet2.sets[0][0].key = value1.filter && value1.filter !== value2.filter ? value1.filter : value1.measure;
+            chartSet2.sets[1][0].key = value2.filter && value2.filter !== value1.filter ? value2.filter : value2.measure;
+
+            chartSet2.keys.pop();
+
+            chartSet2.keys.push(value1.filter && value1.filter !== value2.filter ? value1.filter : value1.measure);
+            chartSet2.keys.push(value2.filter && value2.filter !== value1.filter ? value2.filter : value2.measure);
+
+
             chartSet1.sets = chartSet1.sets.map(s => s.map(d => {
                 if (filter.filters.hasOwnProperty(dimension)) {
                     const filters = filter.filters[dimension][0] || []
@@ -235,7 +229,10 @@ class ChartWidget extends Component {
                     }}
 
                 return d
+
             }))
+
+
 
 
             tableSet = dimGroup1.top(Infinity).map(i => ({
@@ -281,45 +278,47 @@ class ChartWidget extends Component {
             groupAll,
             ...Object.keys(data.dimensions).filter(k => k.substring(0, 1) !== '_')
         ]
+
+        var tickVals = chartSet1.keys;
+        var tickCount = chartSet1.length;
+        if (totalOnly) {
+            chartSet1 = chartSet2;
+            tickVals = ['Total'];
+
+
+        }
+
+
         if (horizontal) {
 
-            /*chartSet1.sets = chartSet1.sets.map(s => s.sort((a, b) => {
-                return b.value < a.value
-            }))*/
+
             return (
 
                 <div className="chart comparison" style={{width: w}}>
                     <VictoryChart
-                        padding={{left:240, top:40}}
+                        title={"test"}
+                        padding={{left:240, top:45, right:5}}
                         height={h}
                         width={w}
                         containerComponent={<VictoryContainer responsive={false}/>}
                         theme={VictoryTheme.material}>
-                        {/*<VictoryAxis
-                            style={axisStyle}
-                            tickLabelComponent={<VictoryLabel className='axis' angle={20}/>}
-                            tickValues={chartSet1.keys}/>
-                        <VictoryAxis
-                            tickLabelComponent={<VictoryLabel className='axis'/>}
-                            style={axisStyle}
-                            offsetX={30}
-                            dependentAxis
-                            tickFormat={(x) => (x >= 1000000) ? (`${x / 1000000}m`) : (`${x / 1000}k`)}/>*/}
 
                         <VictoryAxis
+
                             style={axisStyle}
                             offsetX={240}
-
                             dependentAxis
-                          //  tickValues={chartSet1.sets[0].keys}
                             tickCount={takeTop}
                             tickLabelComponent={<VictoryLabel style={{fontSize: 10, padding: 5, color: '#fff', zIndex: 999}} text={
                                 function(d) {
-                                    return addCommas(chartSet1.sets[0][d - 1].key);
+                                    return chartSet1.sets[0][d - 1].key;
                                 }
                             } angle={0} /> }
                         />
                         <VictoryAxis
+                           // label={dimension}
+                           // axisLabelComponent={<VictoryLabel dy={5} style={{fontSize: 11}} />}
+
                             style={axisStyle}
                             offsetY={40}
                             tickFormat={(y) => (y >= 1000000) ? (`${y / 1000000}m`): (`${y / 1000}k`)}
@@ -331,8 +330,8 @@ class ChartWidget extends Component {
                             horizontal
                             offsetY={120}
                             animate={{duration: 500, delay:0}}
-                            colorScale={"warm"} offset={14}
-                            style={{data: {width: 14}}}>
+                            colorScale={"warm"} offset={barWidth}
+                            style={{data: {width: barWidth}}}>
                             <VictoryBar
                                 name={'value-1'}
                                 x={(d) => d.key}
@@ -366,7 +365,7 @@ class ChartWidget extends Component {
                                 }
 
                                 />}
-                                data={chartSet1.sets[1]}
+                                data={  chartSet1.sets[1]}
                                 events={[{
                                     target: "data",
                                     eventHandlers: {
@@ -380,33 +379,39 @@ class ChartWidget extends Component {
         } else {
             return (
 
-                <div className="chart comparison">
+                <div className="chart comparison" style={{width: w}}>
                     <VictoryChart
-                        padding={{top:8, bottom:27, left:24, right: 10}}
+                        padding={{top:8, bottom:37, left:31, right: 12}}
                         height={h}
                          width={w}
                         containerComponent={<VictoryContainer responsive={false}/>}
                         theme={VictoryTheme.material}>
                         <VictoryAxis
                             style={axisStyle}
-                            tickLabelComponent={<VictoryLabel className='axis' angle={20}/>}
-                            tickValues={chartSet1.keys}/>
+                            tickLabelComponent={<VictoryLabel className='axis' angle={25} />}
+                            tickValues={tickVals}
+                           // label={dimension}
+                           // axisLabelComponent={<VictoryLabel dy={5} style={{fontSize: 11}} />}
+                        />
+
                         <VictoryAxis
-                            tickLabelComponent={<VictoryLabel className='axis'/>}
+                            tickLabelComponent={<VictoryLabel  className='axis'/>}
                             style={axisStyle}
                             offsetX={30}
                             dependentAxis
                             tickFormat={(x) => (x >= 1000000) ? (`${x / 1000000}m`) : (`${x / 1000}k`)}/>
                         <VictoryGroup
+
                             animate={{ delay:0}}
-                            colorScale={"warm"} offset={15}
-                            style={{data: {width: 15}}}>
+                            colorScale={"warm"} offset={barWidth}
+                            style={{data: {width: barWidth}}}>
                             <VictoryBar
                                 name={'value-1'}
                                 x={(d) => d.key}
                                 y={(d) => d.value}
-                                labelComponent={<VictoryTooltip dy={-30} style={{color: '#fff'}}
-                                                                flyoutStyle={{fill: '#1c1f28'}}/>}
+                                labelComponent={<VictoryTooltip dy={-30}
+                                                                style={{color: '#fff'}}
+                                                                flyoutStyle={{fill: '1c1f28'}}/>}
                                 data={chartSet1.sets[0]}
                                 events={[{
                                     target: "data",
@@ -418,7 +423,8 @@ class ChartWidget extends Component {
                                 name={'value-2'}
                                 x={(d) => d.key}
                                 y={(d) => d.value}
-                                labelComponent={<VictoryTooltip dy={-30} style={{color: '#fff'}}
+                                labelComponent={<VictoryTooltip dy={-30}
+                                                                style={{color: '#fff'}}
                                                                 flyoutStyle={{fill: '#1c1f28'}}
                                 text={
                                     function(d) {
@@ -448,6 +454,8 @@ ChartWidget.propTypes = {
     top : PropTypes.number,
     h : PropTypes.number,
     w: PropTypes.number,
+    barWidth: PropTypes.number,
+    totalOnly: PropTypes.bool,
     horizontal: PropTypes.bool,
     data : PropTypes.shape({
         dimensions: PropTypes.object.isRequired,

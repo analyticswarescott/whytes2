@@ -7,6 +7,7 @@
 padding-right: 40px;
 }
 .content.indent {
+  height: 100%;
   padding-left: 260px;
 }
 
@@ -70,11 +71,13 @@ svg.icon {
 .comparison > div, .overview > div {
       margin-left: -20px;
     margin-right: -15px;
+  height: 100%;
 }
 .charts {
     margin: auto;
   padding: 5px;
   background-color: #242632;
+  height:100%;
 
   /*dev color*/
 /*  background-color: #457c4a;*/
@@ -85,7 +88,7 @@ svg.icon {
   float: left;
 }
 .comparison .totals {
-  padding-top: 5px;
+  padding-top: 10px;
   text-align: center;
   font-size: 18px;
   height: 90px;

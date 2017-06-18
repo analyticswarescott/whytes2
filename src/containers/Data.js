@@ -54,7 +54,7 @@ class Data extends Component {
                     v[i] = dataset.dimension(d => d[i])
                     return v
                 }, {
-                    _all: dataset.dimension(d => d._date),
+                    _all: dataset.dimension(d => 1),
                 })
 
                 const date = dataset.dimension(d => d._date)
@@ -91,7 +91,7 @@ class Data extends Component {
             return (
 
                 <div className="loader">
-               {/* <LinearProgress mode="indeterminate" />*/}
+              <LinearProgress mode="indeterminate" />
                 <div className="text " >Loading data, please wait...</div>
                 </div>
 

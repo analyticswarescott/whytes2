@@ -61,7 +61,7 @@ class App extends Component {
 
     onDatasetChange(value) {
         // parent class change handler is always called with field name and value
-        this.setState({dsname: value});
+        this.setState({dsname: value, loaded: false});
     }
 
 

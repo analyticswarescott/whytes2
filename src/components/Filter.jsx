@@ -9,7 +9,8 @@ class Filter extends Component {
         return (
             <div className="filters">
             {this.props.values.map((v, i) => (
-                <Chip key={i}>{v}</Chip>
+
+                <Chip key={i}> foo </Chip>
             ))}
             </div>
         )

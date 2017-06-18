@@ -162,7 +162,7 @@ hideCalendarDate={true}
     render() {
          const query = this.props.location.query
         const { filters } = this.props.filter
-        const { fromDate, toDate, isYtd, isOpen, isDocked } = this.state
+        const { fromDate, toDate, isYtd, isOpen, isDocked, loaded } = this.state
 
         const closeStyle = {
             visibility: isDocked ? 'hidden' : 'visible'
@@ -171,7 +171,7 @@ hideCalendarDate={true}
         <Drawer
             className={'sidebar'}
             containerClassName={'sidebar-container'}
-            docked={isDocked}
+            docked={!loaded}
             width={260}
             open={isOpen}
         > <div className="sidebar-header">Whytes Analytics</div>
@@ -219,7 +219,7 @@ hideCalendarDate={true}
                 {Object.keys(filters)
                     .filter(f => f.substring(0,1) !== '_')
                     .map(k => filters[k][0].map((filter, i) => (
-                        <Chip style={{margin: 2}} key={i} onRequestDelete={this.onRemoveFilter(k, filter)}>{filter}</Chip>
+                        <Chip style={{ margin: 2}} key={i} onRequestDelete={this.onRemoveFilter(k, filter)}>  {filter.substring(filter.lastIndexOf("-") + 1)}   </Chip>
                     )))
                 }
             </div>

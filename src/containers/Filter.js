@@ -78,6 +78,8 @@ class Filter extends Component {
     render() {
         const filters = JSON.parse(this.props.location.query.filters || '{}')
 
+
+
         return (
             <div className="filter">
             {React.Children.map(

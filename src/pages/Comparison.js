@@ -6,6 +6,9 @@ import Table from '../components/Table';
 import Totals from '../components/Totals';
 import { withRouter } from 'react-router'
 import {lightBlueA400, lightGreenA400, deepOrangeA400} from 'material-ui/styles/colors'
+
+import ChartWidget from '../components/ChartWidget'
+
 import {
     VictoryBar,
     VictoryChart,
@@ -35,13 +38,6 @@ const hasValues =() => {
     return true
 }
 
-const axisStyle = {
-  axis: {stroke: "#242632"},
-  axisLabel: {fontSize: 16, padding: 20, fill: 'red'},
-  grid: {stroke: "#242632"},
-  ticks: {stroke: "grey"},
-  tickLabels: {fontSize: 11, padding: 5, color: '#fff'}
-}
 class Comparison extends Component {
     constructor(props) {
         super(props)
@@ -171,6 +167,8 @@ class Comparison extends Component {
 
     render() {
         const { data, params, filter } = this.props
+
+
         const { dimension, value1, value2 } = this.state
  const value = (v) => v.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
         let chartSet1 = []
@@ -261,6 +259,38 @@ class Comparison extends Component {
             groupAll,
             ...Object.keys(data.dimensions).filter(k => k.substring(0, 1) !== '_')
         ]
+
+        let mainChart = null;
+
+        if (dimension === "Article") {
+            mainChart =       <div className="col-sm-10" style={{paddingTop: 10}}>
+                <ChartWidget
+                    horizontal={true}
+                    data={this.props.data}
+                    filter={this.props.filter}
+                    dimension={dimension}
+                    barWidth={15}
+                    top={14}
+                    h={550}
+                    w={880}
+                />
+            </div>;
+        }
+        else {
+            mainChart =       <div className="col-sm-10" style={{paddingTop: 10}}>
+                <ChartWidget
+                    //horizontal={true}
+                    data={this.props.data}
+                    filter={this.props.filter}
+                    dimension={dimension}
+                    barWidth={20}
+                    h={300}
+                    w={880}
+                />
+            </div>;
+        }
+
+
         return (
         <div className={"comparison"}>
             <Toolbar className="toolbar">
@@ -309,83 +339,26 @@ class Comparison extends Component {
 
             <div className="visual">
             <div className="charts row">
-            <div className="col-sm-12 ">
-                 <div className="chart">
-                <VictoryChart
-                        width={132}
-                        containerComponent={<VictoryContainer responsive={false}/>}
-                        theme={VictoryTheme.material} >
-                        <VictoryAxis
-style={axisStyle}
-                            tickLabelComponent={<VictoryLabel className='axis' angle={20}/>}
-                            tickValues={[
-                                value1.measure.split('_').map((d) => d[0]).join('') + ' ' + ((value1.filter) ?  value1.filter : ''),
-                                value2.measure.split('_').map((d) => d[0]).join('')  + ' ' + ((value2.filter) ?  value2.filter : '')]}  />
-                        <VictoryAxis
-                        tickLabelComponent={<VictoryLabel className='axis'/>}
-                        style={axisStyle}
-                            offsetX={30}
-                            dependentAxis
-                            tickFormat={(x) => (x >= 1000000) ? (`${x / 1000000}m`): (`${x / 1000}k`)} />
-                        <VictoryGroup
-                            animate={{duration: 100}}
-                            colorScale={"warm"} offset={32}
-                            style={{ data: {width: 32} }} >
-                <VictoryBar
-                                x={(d) => d.key}
-                                y={(d) => d.value}
-                                labelComponent={<VictoryTooltip className='tooltip' style={{fill: '#fff'}} flyoutStyle={{fill: '#1c1f28'}}/>}
-                                data={chartSet2}
-                                 />
-                                 </VictoryGroup>
-                                 </VictoryChart>
+
+
+                {mainChart}
+
+
+                <div className="col-sm-2" style={{paddingTop: 10}}>
+                    <ChartWidget
+                        data={this.props.data}
+                        filter={this.props.filter}
+                        dimension={dimension}
+                        totalOnly={true}
+                        barWidth={20}
+                        h={320}
+                        w={120}
+                    />
                 </div>
-                 <div className="chart comparison">
-                    <VictoryChart
-                        width={850}
-                        containerComponent={<VictoryContainer responsive={false}/>}
-                        theme={VictoryTheme.material} >
-                        <VictoryAxis
-style={axisStyle}
-                            tickLabelComponent={<VictoryLabel className='axis' angle={20}/>}
-                            tickValues={chartSet1.keys} />
-                        <VictoryAxis
-                        tickLabelComponent={<VictoryLabel className='axis'/>}
-                            style={axisStyle}
-                            offsetX={30}
-                            dependentAxis
-                            tickFormat={(x) => (x >= 1000000) ? (`${x / 1000000}m`): (`${x / 1000}k`)} />
-                        <VictoryGroup
-                            animate={{duration: 100}}
-                            colorScale={"warm"} offset={20}
-                            style={{ data: {width: 20} }} >
-                            <VictoryBar
-                                name={'value-1'}
-                                x={(d) => d.key}
-                                y={(d) => d.value}
-                                labelComponent={<VictoryTooltip style={{color: '#fff'}} flyoutStyle={{fill: '#1c1f28'}}/>}
-                                data={chartSet1.sets[0]}
-                                events={[{
-                                    target: "data",
-                                    eventHandlers: {
-                                    onClick: this.onClickHandler
-                                }}]} />
-                            <VictoryBar
-                                name={'value-2'}
-                                x={(d) => d.key}
-                                y={(d) => d.value}
-                                labelComponent={<VictoryTooltip style={{color: '#fff'}} flyoutStyle={{fill: '#1c1f28'}}/>}
-                                data={chartSet1.sets[1]}
-                                events={[{
-                                    target: "data",
-                                    eventHandlers: {
-                                    onClick: this.onClickHandler
-                                }}]} />
-                        </VictoryGroup>
-                    </VictoryChart>
-                </div>
-</div>
-                </div>
+
+
+            </div>
+
                 <div className="numbers">
                     <Totals
 

@@ -10,7 +10,7 @@ class Totals extends Component {
 
 		return (
 			<div className="row totals">
-              	<div className="col-sm-2"> </div>
+              	<div className="col-sm-2"> Totals </div>
                 <div className="col-sm-2"> { value(value1) }</div>
                 <div className="col-sm-3"> { value(value2) }</div>
                 <div className="col-sm-2"> { value(sum) }</div>

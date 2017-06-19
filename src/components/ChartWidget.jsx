@@ -14,11 +14,9 @@ import {
     VictoryContainer,
     VictoryLabel,
     VictoryTooltip,
-    Line
 } from 'victory'
 
 const groupAll = 'All'
-const defaultDimension = 'Month'
 const defaultValue1 = { measure: 'Gross_Sales', group : 'Year', options: [], filter: '2016' }
 const defaultValue2 = { measure: 'Gross_Sales', group : 'Year', options: [], filter: '2017' }
 
@@ -31,9 +29,6 @@ const getOptions = (dimension) => {
     return value
 }
 
-const hasValues =() => {
-    return true
-}
 
 const axisStyle = {
     axis: {stroke: "#242632"},
@@ -67,16 +62,6 @@ class ChartWidget extends Component {
     componentWillReceiveProps(props) {
         const { data, params, location, dimension, filter } = props
 
-       // console.log("===== Widget PROPS ==========")
-       // console.log(props);
-
-
-     /*   if (dimension !== this.state.dimension) {
-            if (this.dimGroup) {
-                this.dimGroup.dispose()
-            }
-
-        }*/
 
         if (this.dimGroup) {
             this.dimGroup.dispose()
@@ -185,8 +170,6 @@ class ChartWidget extends Component {
         const value = (v) => v.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
         let chartSet1 = []
         let chartSet2 = []
-
-        let chartSet3= []
 
         let tableSet = []
         let totalSet = []

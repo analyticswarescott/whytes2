@@ -379,15 +379,15 @@ class Overview2 extends Component {
                         />
                     </div>
 
-                    <div className="col-sm-6 ">
+               <div className="col-sm-6 ">
                         <ChartWidget
                             barWidth={14}
                             data={this.props.data}
                             filter={this.props.filter}
                             dimension="Item"
-                            top={15}
+                            top={18}
                             horizontal={true}
-                            h={500}
+                            h={554}
                             w={650}
                         />
                     </div>

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
+//import AppBar from 'material-ui/AppBar';
 import {withRouter, Link} from 'react-router'
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -10,8 +10,8 @@ import Subheader from 'material-ui/Subheader';
 import Checkbox from 'material-ui/Checkbox'
 import DatePicker from 'material-ui/DatePicker'
 import Chip from 'material-ui/Chip'
-import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
+//import IconButton from 'material-ui/IconButton';
+//import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Dashboard from 'material-ui/svg-icons/action/dashboard';
 import InsertChart from 'material-ui/svg-icons/editor/insert-chart';
 import MoveToInbox from 'material-ui/svg-icons/content/move-to-inbox';
@@ -19,15 +19,12 @@ import MoveToInbox from 'material-ui/svg-icons/content/move-to-inbox';
 import Attachment from 'material-ui/svg-icons/file/attachment';
 
 
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+//import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 
 
-import Select from '../components/Select'
+//import Select from '../components/Select'
 
-const style = {
-  backgroundColor: '#1c1f28',
-    height: 50
-}
+
 class Sidebar extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +34,8 @@ class Sidebar extends Component {
             isDocked: props.isOpen,
             fromDate: null,
             toDate: null,
-            isYtd: false
+            isYtd: false,
+            dimension: 'Month'
         }
     }
 
@@ -48,6 +46,7 @@ class Sidebar extends Component {
     componentWillReceiveProps(props) {
         const { min, max } = props.data.dimensions._date
         const filter = props.filter.filters._date || null
+
 
         let fromDate = min
         let toDate   = max
@@ -163,6 +162,8 @@ hideCalendarDate={true}
          const query = this.props.location.query
         const { filters } = this.props.filter
         const { fromDate, toDate, isYtd, isOpen, isDocked, loaded } = this.state
+
+        const params = this.props.params;
 
         const closeStyle = {
             visibility: isDocked ? 'hidden' : 'visible'

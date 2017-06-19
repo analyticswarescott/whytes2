@@ -65,7 +65,6 @@ class Comparison extends Component {
         const { data, params, location } = props
 
         const dimension = (params.dimension) ? params.dimension : defaultDimension
-
         if (dimension !== this.state.dimension) {
             if (this.dimGroup) {
                 this.dimGroup.dispose()

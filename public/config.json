@@ -6,7 +6,6 @@
       "dimensions": [
         "Year",
         "Month",
-        "Day",
         "Manager",
         "Brand",
         "Region",
@@ -37,15 +36,6 @@
           "Oct",
           "Nov",
           "Dec"
-        ],
-        "Day": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday"
         ]
       }
     },
@@ -56,13 +46,12 @@
       "dimensions": [
         "Year",
         "Month",
-        "Day",
         "Manager",
         "Brand",
         "Region",
         "Category",
         "Customer",
-        "Item",
+         "Item",
         "Division"
       ],
       "measures": [
@@ -75,7 +64,6 @@
       ],
       "order": {
         "Month": [
-          "Jan",
           "Feb",
           "Mar",
           "Apr",
@@ -86,16 +74,8 @@
           "Sep",
           "Oct",
           "Nov",
-          "Dec"
-        ],
-        "Day": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday"
+          "Dec",
+          "Jan"
         ]
       }
     }

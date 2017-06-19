@@ -262,7 +262,7 @@ class Comparison extends Component {
 
         let mainChart = null;
 
-        if (dimension === "Article") {
+        if (dimension === "Item") {
             mainChart =       <div className="col-sm-10" style={{paddingTop: 10}}>
                 <ChartWidget
                     horizontal={true}

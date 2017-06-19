@@ -12,7 +12,7 @@
         "Region",
         "Category",
         "Customer",
-        "Article",
+        "Item",
         "Division"
       ],
       "measures": [
@@ -62,14 +62,16 @@
         "Region",
         "Category",
         "Customer",
-        "Article",
+        "Item",
         "Division"
       ],
       "measures": [
         "Gross_Sales",
         "Gross_Margin",
         "Netto_Sales",
-        "Quantity"
+        "Quantity",
+        "Budget_Gross_Sales",
+        "Budget_Gross_Margin"
       ],
       "order": {
         "Month": [

@@ -3,20 +3,8 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import Select from '../components/Select'
 import ChartWidget from '../components/ChartWidget'
 import {groupReducer, chartReducer} from '../helpers/comparison'
-import Table from '../components/Table';
-import Totals from '../components/Totals';
 import { withRouter } from 'react-router'
 import {lightBlueA400, lightGreenA400, deepOrangeA400} from 'material-ui/styles/colors'
-import {
-    VictoryBar,
-    VictoryChart,
-    VictoryAxis,
-    VictoryTheme,
-    VictoryGroup,
-    VictoryContainer,
-    VictoryLabel,
-    VictoryTooltip
-} from 'victory'
 
 const groupAll = 'All'
 const defaultDimension = 'Month'

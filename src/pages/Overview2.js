@@ -384,7 +384,7 @@ class Overview2 extends Component {
                             barWidth={14}
                             data={this.props.data}
                             filter={this.props.filter}
-                            dimension="Article"
+                            dimension="Item"
                             top={15}
                             horizontal={true}
                             h={500}

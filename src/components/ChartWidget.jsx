@@ -446,7 +446,7 @@ class ChartWidget extends Component {
                                     x={(xoffset + 10 + (barWidth -15) + (totalOnly == true ? 18 : 0))
                                     + ( ((computedWidth /numItems)   ) * i + (i *1.2 * (17/numItems)) ) }
 
-                                      y="9" stroke="none" fill="#fff" fontSize={10}  textAnchor="middle"  >
+                                      y="9" stroke="none" fill="#fff" fontSize={11}  textAnchor="middle"  >
                                     {intToString(chartSet1.sets[1][i].value, 0)}
                                 </text>
                             )
@@ -460,7 +460,7 @@ class ChartWidget extends Component {
                           + (totalOnly == true ? 18 : 0))
                           + ( ((computedWidth /numItems)   ) * i + (i *1.2 * (17/numItems) ) ) }
 
-                                        y="22" stroke="none" fill={chartSet1.sets[1][i].fill} fontSize={10} textAnchor="middle" >
+                                        y="25" stroke="none" fill={chartSet1.sets[1][i].fill} fontSize={11} textAnchor="middle" >
                                         {getIndex(chartSet1.sets[0][i].value, chartSet1.sets[1][i].value, 1)}
                                     </text>
                                 )

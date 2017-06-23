@@ -295,67 +295,35 @@ class Overview2 extends Component {
 
             <div className="visual">
             <div className="charts row">
-            <div className="col-sm-4 ">
-                <ChartWidget
-                    barWidth={15}
-                    data={this.props.data}
-                    filter={this.props.filter}
-                 dimension="Month"
-                    h={200}
-                    w={440}
-                />
-            </div>
-                <div className="col-sm-4 ">
-                <ChartWidget
-                    barWidth={15}
-                    data={this.props.data}
-                    filter={this.props.filter}
-                    dimension="Manager"
-                    top={10}
-                    h={200}
-                    w={420}
-                />
-            </div>
-                <div className="col-sm-4 ">
+                <div className="col-sm-6 ">
                     <ChartWidget
                         barWidth={15}
                         data={this.props.data}
                         filter={this.props.filter}
-                        dimension="Division"
-                        top={8}
+                     dimension="Month"
                         h={200}
-                        w={350}
+                        w={440}
                     />
                 </div>
-
-
-        </div>
-
-
+                    <div className="col-sm-6 ">
+                    <ChartWidget
+                        barWidth={15}
+                        data={this.props.data}
+                        filter={this.props.filter}
+                        dimension="Manager"
+                        top={10}
+                        h={200}
+                        w={420}
+                    />
+                </div>
+            </div>
 
 
 {/*row 2*/}
                 <div className="charts row">
 
-                    <div className="col-sm-5 ">
-                        <ChartWidget
-                            barWidth={15}
-                            data={this.props.data}
-                            filter={this.props.filter}
-                            dimension="Category"
-                            top={10}
-                            h={160}
-                            w={420}
-                        />
-                        <ChartWidget
-                            barWidth={15}
-                            data={this.props.data}
-                            filter={this.props.filter}
-                            dimension="Brand"
-                            top={10}
-                            h={160}
-                            w={420}
-                        />
+                    <div className="col-sm-6 ">
+
                         <ChartWidget
                             barWidth={15}
                             data={this.props.data}
@@ -363,11 +331,49 @@ class Overview2 extends Component {
                             dimension="Customer"
                             top={10}
                             h={180}
-                            w={420}
+                            w={560}
                         />
                     </div>
+                    <div className="col-sm-6 ">
+                        <ChartWidget
+                            barWidth={15}
+                            data={this.props.data}
+                            filter={this.props.filter}
+                            dimension="Division"
+                            top={8}
+                            h={180}
+                            w={560}
+                        />
+                    </div>
+                </div>
 
-               <div className="col-sm-6 ">
+                    <div className="charts row">
+                        <div className="col-sm-6 ">
+                            <ChartWidget
+                                barWidth={15}
+                                data={this.props.data}
+                                filter={this.props.filter}
+                                dimension="Category"
+                                top={12}
+                                h={160}
+                                w={420}
+                            />
+                        </div>
+                        <div className="col-sm-6 ">
+                            <ChartWidget
+                                barWidth={15}
+                                data={this.props.data}
+                                filter={this.props.filter}
+                                dimension="Brand"
+                                top={10}
+                                h={160}
+                                w={420}
+                            />
+                        </div>
+                    </div>
+{/*Item Level*/}
+                <div className="charts row">
+                    <div className="col-sm-12 ">
                         <ChartWidget
                             barWidth={14}
                             data={this.props.data}
@@ -379,12 +385,9 @@ class Overview2 extends Component {
                             w={650}
                         />
                     </div>
-                </div>
+                    </div>
 
-                <div className="charts row">
-                    <div className="col-sm-12 " style={{height: 200}}/>
 
-                </div>
 
 
                 </div>

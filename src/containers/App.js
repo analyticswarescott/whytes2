@@ -99,6 +99,7 @@ class App extends Component {
                 url={datasetie.url}
                 dimensions={datasetie.dimensions}
                 measures={datasetie.measures}
+                default_filters={datasetie.default_filters}
                // aggregations={dataset.aggregations}
                 order={datasetie.order}
                 preprocessor={dataset.preprocessor}

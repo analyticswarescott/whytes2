@@ -50,7 +50,7 @@ class Sidebar extends Component {
 
         let fromDate = min
         let toDate   = max
-        let isYtd    = false
+        let isYtd    = true
 
         if (Array.isArray(filter)) {
             fromDate =  new Date(filter[0])

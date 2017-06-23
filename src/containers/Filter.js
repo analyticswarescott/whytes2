@@ -4,6 +4,7 @@ import { applyFilters } from '../helpers/filter'
 
 class Filter extends Component {
     componentWillMount() {
+
         this.updateHandler(null, this.props)
     }
 
@@ -16,7 +17,7 @@ class Filter extends Component {
             ? oldProps.location.query.filters || null
             : null
 
-        let newFilters = newProps.location.query.filters || null
+        let newFilters = (oldProps) ? newProps.location.query.filters || null : JSON.stringify(newProps.data.default_filters)
 
         if (oldFilters === newFilters) {
             return

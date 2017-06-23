@@ -14,6 +14,7 @@ class Data extends Component {
         this.state = {
             url       : null,
             dimensions: null,
+            default_filters: null,
             measures  : null,
             aggregations: null,
             order     : null,
@@ -29,7 +30,7 @@ class Data extends Component {
     componentWillReceiveProps(props) {
         const {
             url, dimensions, measures,
-            aggregations, order, preprocessor
+            aggregations, order, preprocessor, default_filters
         } = props
 
         if (url !== this.state.url) {
@@ -67,6 +68,7 @@ class Data extends Component {
                 this.setState({
                     url         : url,
                     dimensions  : objects,
+                    default_filters: default_filters,
                     measures    : measures,
                     aggregations: aggregations,
                     order       : order,

@@ -3,7 +3,8 @@ import {groupReducer, chartReducer} from '../helpers/comparison'
 import { withRouter } from 'react-router'
 
 import {getIndex} from '../helpers/comparison'
-import {addCommas} from '../helpers/comparison'
+import {addCommas, intToString} from '../helpers/comparison'
+import Chip from 'material-ui/Chip'
 
 import {
     VictoryBar,
@@ -183,8 +184,8 @@ class ChartWidget extends Component {
             const g2Reducer = groupReducer(null, value1, value2)
 
 
-            dimGroup1 = this.dimGroup.reduce(g1Reducer.add, g1Reducer.remove, g1Reducer.init).order(d => d.value1)
-            dimGroup2 = this.allGroup.reduce(g2Reducer.add, g2Reducer.remove, g2Reducer.init).order(d => d.value1)
+            dimGroup1 = this.dimGroup.reduce(g1Reducer.add, g1Reducer.remove, g1Reducer.init).order(d => d.value2)
+            dimGroup2 = this.allGroup.reduce(g2Reducer.add, g2Reducer.remove, g2Reducer.init).order(d => d.value2)
 
             const cReducer = chartReducer(value1.filter, value2.filter)
 
@@ -263,13 +264,19 @@ class ChartWidget extends Component {
         ]
 
         var tickVals = chartSet1.keys;
-        var tickCount = chartSet1.length;
         if (totalOnly) {
             chartSet1 = chartSet2;
             tickVals = ['Total'];
 
 
         }
+
+
+        //
+        var numItems = chartSet1.sets[0].length
+        var barpad = 6
+        var computedWidth = numItems * (barWidth *2 + barpad) ;
+        var xoffset = 55;
 
 
         if (horizontal) {
@@ -343,7 +350,8 @@ class ChartWidget extends Component {
 
                                 text={
                                     function(d) {
-                                        return addCommas(d.y.toFixed(0)) + "  " + getIndex(chartSet1.sets[0][d.eventKey].value, chartSet1.sets[1][d.eventKey].value, 1) + '%';
+                                        return addCommas(d.y.toFixed(0))
+                                            //+ "  " + getIndex(chartSet1.sets[0][d.eventKey].value, chartSet1.sets[1][d.eventKey].value, 1) + '%';
                                     }
                                 }
 
@@ -364,9 +372,9 @@ class ChartWidget extends Component {
 
                 <div className="chart comparison" style={{width: w}}>
                     <VictoryChart
-                        padding={{top:8, bottom:37, left:31, right: 12}}
+                        padding={{top:8, bottom:29, left:31, right: 12}}
                         height={h}
-                         width={w}
+                         width={computedWidth + xoffset}
                         containerComponent={<VictoryContainer responsive={false}/>}
                         theme={VictoryTheme.material}>
                         <VictoryAxis
@@ -411,7 +419,8 @@ class ChartWidget extends Component {
                                                                 flyoutStyle={{fill: '#1c1f28'}}
                                 text={
                                     function(d) {
-                                        return  addCommas(d.y.toFixed(0)) + "  " + getIndex(chartSet1.sets[0][d.eventKey].value, chartSet1.sets[1][d.eventKey].value, 1) + '%';
+                                        return  addCommas(d.y.toFixed(0))
+                                            //+ "  " + getIndex(chartSet1.sets[0][d.eventKey].value, chartSet1.sets[1][d.eventKey].value, 1) + '%';
                                     }
                                 }
 
@@ -425,12 +434,59 @@ class ChartWidget extends Component {
                                 }]}/>
                         </VictoryGroup>
                     </VictoryChart>
+
+
+
+{/*details div -- TODO: allow optional or toggle*/}
+                    <div style={{paddingTop: 0}} >
+                        <svg  width="200" height="30" style={{/*{backgroundColor: 'black' }*/}}>
+                            {chartSet1.sets[0].map((k, i) => (
+                                <text
+
+                                    x={(xoffset + 10 + (barWidth -15) + (totalOnly == true ? 18 : 0))
+                                    + ( ((computedWidth /numItems)   ) * i + (i *1.2 * (17/numItems)) ) }
+
+                                      y="9" stroke="none" fill="#fff" fontSize={10}  textAnchor="middle"  >
+                                    {intToString(chartSet1.sets[1][i].value, 0)}
+                                </text>
+                            )
+                            )
+                            }
+
+
+                           {chartSet1.sets[0].map((k, i) => (
+                                    <text
+                          x={(xoffset + 10 + (barWidth -15)
+                          + (totalOnly == true ? 18 : 0))
+                          + ( ((computedWidth /numItems)   ) * i + (i *1.2 * (17/numItems) ) ) }
+
+                                        y="22" stroke="none" fill={chartSet1.sets[1][i].fill} fontSize={10} textAnchor="middle" >
+                                        {getIndex(chartSet1.sets[0][i].value, chartSet1.sets[1][i].value, 1)}
+                                    </text>
+                                )
+                            )
+                            }
+
+
+                            {/*<text
+                               x="22" y="22" stroke="none" fill="#fff" fontSize={10}  textAnchor="middle"  >
+                                {(computedWidth /numItems)  } <br/> {numItems} <br/> {computedWidth}
+                            </text>*/}
+
+                        </svg>
+
+                      </div>
+
                 </div>
             )
         }
 
     }
+
+
 }
+
+
 
 ChartWidget.propTypes = {
     dimension : PropTypes.string.isRequired,

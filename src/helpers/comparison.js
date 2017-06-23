@@ -84,15 +84,24 @@ export function     getIndex (v1,v2, places)  {
     index = (parseFloat(v2) - parseFloat(v1))/parseFloat(v1) * 100;
     //parseFloat(datasets[1][d - 1]);
 
+    if (v2 == 0) {
+        if (!v1 === 0) {
+            return '-100';
+        } else {return ''}
+
+    }
+
     var neg = 0;
     if (v2 < v1) {
        neg = 1;
     }
 
+
+
     if (index > 100) {
         ret = index.toPrecision(2+places+neg);
     }
-    else if (index > 10) {
+    else if (roundValue(index) >= 9.5) {
         ret = index.toPrecision(1+places+neg);
     }
     else {
@@ -103,4 +112,30 @@ export function     getIndex (v1,v2, places)  {
         ret = "+" + ret;
     }
     return addCommas(ret);
+}
+
+export function intToString (num, fixed) {
+    if (num === null) { return null; } // terminate early
+    if (num === 0) { return ''; } // terminate early
+
+
+
+    fixed = (!fixed || fixed < 0) ? 0 : fixed; // number of decimal places to show
+    var b = (num).toPrecision(2).split("e"), // get power
+        k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3), // floor at decimals, ceiling at trillions
+
+        nodec = num.toFixed(0),
+        units = nodec.length - (k*3),
+
+        f = 3-(units + k -1) > 1 ? 1 : 3-(units + k -1)
+
+
+    console.log(nodec)
+    console.log(f)
+
+  var  c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3) ).toFixed(f + fixed), // divide by power
+        d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
+        e = d + ['', 'k', 'm', 'b', 't'][k]; // append power
+
+    return e;
 }

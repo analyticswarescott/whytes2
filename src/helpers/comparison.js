@@ -71,10 +71,21 @@ export function addCommas(nStr) {
     var x1 = x[0];
     var x2 = x.length > 1 ? '.' + x[1] : '';
     var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
+
+    if (x1 === "589096") {
+        var bp = 1
+    }
+
+    var num = x1.toString()
+    num = num.replace(/(\d{1,2}?)((\d{3})+)$/, "$1,$2");
+    num = num.replace(/(\d{3})(?=\d)/g, "$1,");
+
+    return num;
+
+ /*   while (rgx.test(x1)) {
         x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
-    return x1 + x2;
+    return x1 + x2;*/
 }
 
 export function     getIndex (v1,v2, places)  {
@@ -127,11 +138,13 @@ export function intToString (num, fixed) {
         nodec = num.toFixed(0),
         units = nodec.length - (k*3),
 
-        f = 3-(units + k -1) > 1 ? 1 : 3-(units + k -1)
+        f = 3-(units + k -1) > 0 ? 1 : 3-(units + k -1 )
+        f = f < 0 ? 0 : f
 
-
-    console.log(nodec)
-    console.log(f)
+    // hard set XXk values to no decimal
+        if (k === 1 && units === 2) {
+           f= 0;
+        }
 
   var  c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3) ).toFixed(f + fixed), // divide by power
         d = c < 0 ? c : Math.abs(c), // enforce -0 is 0

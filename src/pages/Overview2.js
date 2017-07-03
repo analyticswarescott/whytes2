@@ -310,8 +310,8 @@ class Overview2 extends Component {
                         barWidth={15}
                         data={this.props.data}
                         filter={this.props.filter}
-                        dimension="Manager"
-                        top={10}
+                        dimension="Division"
+                        top={8}
                         h={200}
                         w={420}
                     />
@@ -328,7 +328,7 @@ class Overview2 extends Component {
                             barWidth={15}
                             data={this.props.data}
                             filter={this.props.filter}
-                            dimension="Customer"
+                            dimension="Manager"
                             top={10}
                             h={180}
                             w={560}
@@ -339,7 +339,7 @@ class Overview2 extends Component {
                             barWidth={15}
                             data={this.props.data}
                             filter={this.props.filter}
-                            dimension="Division"
+                            dimension="Customer"
                             top={8}
                             h={180}
                             w={560}

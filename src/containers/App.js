@@ -61,6 +61,10 @@ class App extends Component {
 
     onDatasetChange(value) {
         // parent class change handler is always called with field name and value
+
+
+
+
         this.setState({dsname: value, loaded: false});
     }
 
@@ -96,6 +100,7 @@ class App extends Component {
         return (
         <MuiThemeProvider muiTheme={theme}>
             <Data
+                dsname={datasetie.dsname}
                 url={datasetie.url}
                 dimensions={datasetie.dimensions}
                 measures={datasetie.measures}

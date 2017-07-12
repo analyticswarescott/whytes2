@@ -379,6 +379,7 @@ class Comparison extends Component {
 }
 
 Comparison.propTypes = {
+    dsname: PropTypes.string,
     data : PropTypes.shape({
         dimensions: PropTypes.object.isRequired,
         measures  : PropTypes.array.isRequired

@@ -50,14 +50,14 @@ export const chartReducer = (k1, k2) => (d) => d.reduce((result, item) => {
     result.sets[0].push({
         key   : item.key,
         value : value1,
-        label : addCommas(value1.toFixed(0)),
+        label : value1.toFixed(0),
         fill  : lightBlueA400
 
     })
     result.sets[1].push({
         key   : item.key,
         value : value2,
-        label : addCommas(value2.toFixed(0)),
+        label : value2.toFixed(0),
         fill  : value1 < value2 ?  lightGreenA400 : (value1 > value2) ? deepOrangeA400 : lightBlueA400
     })
 
@@ -66,26 +66,11 @@ export const chartReducer = (k1, k2) => (d) => d.reduce((result, item) => {
 
 
 export function addCommas(nStr) {
-    nStr += '';
-    var x = nStr.split('.');
-    var x1 = x[0];
-    var x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
 
-    if (x1 === "589096") {
-        var bp = 1
-    }
+    var parts = nStr.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts[0]
 
-    var num = x1.toString()
-    num = num.replace(/(\d{1,2}?)((\d{3})+)$/, "$1,$2");
-    num = num.replace(/(\d{3})(?=\d)/g, "$1,");
-
-    return num;
-
- /*   while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-    }
-    return x1 + x2;*/
 }
 
 export function     getIndex (v1,v2, places)  {
@@ -122,10 +107,13 @@ export function     getIndex (v1,v2, places)  {
     if (v2 > v1) {
         ret = "+" + ret;
     }
-    return addCommas(ret);
+    return addCommas(ret) + "%";
 }
 
 export function intToString (num, fixed) {
+
+
+
     if (num === null) { return null; } // terminate early
     if (num === 0) { return ''; } // terminate early
 

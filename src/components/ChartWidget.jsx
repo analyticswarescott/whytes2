@@ -69,6 +69,8 @@ class ChartWidget extends Component {
         }
         this.dimGroup = data.dimensions[this.props.dimension].group()
 
+       // console.log(data.dimensions[this.props.dimension].top(Infinity))
+
         let { value1, value2 } = location.query
 
         value1 = (value1) ? JSON.parse(value1) : defaultValue1
@@ -164,7 +166,6 @@ class ChartWidget extends Component {
     render() {
         const { data, params, filter, dimension, top, horizontal, h, w, barWidth, totalOnly } = this.props
 
-        console.log(dimension);
 
         const {  value1, value2 } = this.state;
 
@@ -194,6 +195,8 @@ class ChartWidget extends Component {
 
             chartSet1 = cReducer(dimGroup1.top(takeTop))
 
+
+
             chartSet2 = cReducer(dimGroup2.all())
             chartSet2.sets[0][0].key = value1.filter && value1.filter !== value2.filter ? value1.filter : value1.measure;
             chartSet2.sets[1][0].key = value2.filter && value2.filter !== value1.filter ? value2.filter : value2.measure;
@@ -216,7 +219,10 @@ class ChartWidget extends Component {
 
             }))
 
-
+            //console.log(dimension)
+            //console.log(chartSet1)
+            //console.log(value1)
+            //console.log(value2)
 
 
             tableSet = dimGroup1.top(Infinity).map(i => ({
@@ -330,7 +336,7 @@ class ChartWidget extends Component {
                                                                 flyoutStyle={{fill: '#1c1f28'}}
                                 text={
                                     function(d) {
-                                        return addCommas(d.y.toFixed(0));
+                                        return d.y;
                                     }
                                 }
                                 />}
@@ -350,8 +356,8 @@ class ChartWidget extends Component {
 
                                 text={
                                     function(d) {
-                                        return addCommas(d.y.toFixed(0))
-                                            //+ "  " + getIndex(chartSet1.sets[0][d.eventKey].value, chartSet1.sets[1][d.eventKey].value, 1) + '%';
+                                        return d.y
+
                                     }
                                 }
 
@@ -402,7 +408,17 @@ class ChartWidget extends Component {
                                 y={(d) => d.value}
                                 labelComponent={<VictoryTooltip dy={-30}
                                                                 style={{color: '#fff'}}
-                                                                flyoutStyle={{fill: '1c1f28'}}/>}
+                                                                flyoutStyle={{fill: '1c1f28'}}
+
+
+                                text={
+                                    function(d) {
+                                        return  addCommas(d.value.toFixed(0));
+                                        //+ "  " + getIndex(chartSet1.sets[0][d.eventKey].value, chartSet1.sets[1][d.eventKey].value, 1) + '%';
+                                    }
+                                }
+
+                                />}
                                 data={chartSet1.sets[0]}
                                 events={[{
                                     target: "data",
@@ -419,7 +435,7 @@ class ChartWidget extends Component {
                                                                 flyoutStyle={{fill: '#1c1f28'}}
                                 text={
                                     function(d) {
-                                        return  addCommas(d.y.toFixed(0))
+                                        return  addCommas(d.value.toFixed(0));
                                             //+ "  " + getIndex(chartSet1.sets[0][d.eventKey].value, chartSet1.sets[1][d.eventKey].value, 1) + '%';
                                     }
                                 }

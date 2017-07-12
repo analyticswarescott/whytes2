@@ -30,7 +30,7 @@ class Data extends Component {
     componentWillReceiveProps(props) {
         const {
             url, dimensions, measures,
-            aggregations, order, preprocessor, default_filters
+            aggregations, order, preprocessor, default_filters, dsname
         } = props
 
         if (url !== this.state.url) {
@@ -45,6 +45,8 @@ class Data extends Component {
                 if(error) {
                     console.log(error);
                 }
+
+               // console.log(data)
 
                 if (typeof preprocessor === 'function') {
                     data = preprocessor(data)
@@ -66,6 +68,7 @@ class Data extends Component {
                 }
 
                 this.setState({
+                    dsname : dsname,
                     url         : url,
                     dimensions  : objects,
                     default_filters: default_filters,

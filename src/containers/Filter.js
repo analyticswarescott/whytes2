@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { withRouter } from 'react-router'
 import { applyFilters } from '../helpers/filter'
 
+
 class Filter extends Component {
     componentWillMount() {
 
@@ -11,6 +12,7 @@ class Filter extends Component {
     componentWillReceiveProps(props) {
         this.updateHandler(this.props, props)
     }
+
 
     updateHandler = (oldProps, newProps) => {
         let oldFilters = (oldProps)
@@ -31,6 +33,8 @@ class Filter extends Component {
             newFilters._date[1] = new Date(newFilters._date[1])
         }
 
+
+
         applyFilters(newProps.data.dimensions, oldFilters, newFilters)
     }
 
@@ -49,7 +53,7 @@ class Filter extends Component {
 
 
         console.log(" FILTER HANDLER FIRED ========= >>> ");
-        console.log(dimension);
+        //console.log(dimension);
         console.log(value);
 
         const { pathname, query } = this.props.location

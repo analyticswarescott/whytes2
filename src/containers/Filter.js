@@ -15,11 +15,21 @@ class Filter extends Component {
 
 
     updateHandler = (oldProps, newProps) => {
+
+       // console.log(newProps)
+
         let oldFilters = (oldProps)
             ? oldProps.location.query.filters || null
             : null
 
-        let newFilters = (oldProps) ? newProps.location.query.filters || null : JSON.stringify(newProps.data.default_filters)
+        let newFilters = (newProps) ? newProps.location.query.filters || null : JSON.stringify(newProps.data.default_filters)
+
+        if (!newFilters) {
+            newFilters = JSON.stringify(newProps.data.default_filters)
+
+        }
+
+       // console.log(newFilters)
 
         if (oldFilters === newFilters) {
             return
@@ -35,7 +45,22 @@ class Filter extends Component {
 
 
 
-        applyFilters(newProps.data.dimensions, oldFilters, newFilters)
+        var x =  applyFilters(newProps.data.dsname ,newProps.data.dimensions, oldFilters, newFilters)
+        //console.log(" FILTERS APPLIED ")
+        //console.log(x)
+
+
+        const { pathname, query } = this.props.location
+
+        this.props.router.push({
+            pathname: pathname,
+            query: {
+                ...query,
+                filters: JSON.stringify(newFilters)
+            }
+        })
+
+
     }
 
     clearHandler = () => {

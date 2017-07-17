@@ -61,6 +61,8 @@ class Overview2 extends Component {
 
         const { data, params, location } = props
 
+        //console.log(props)
+
         const dimension = (params.dimension) ? params.dimension : defaultDimension
 
         if (dimension !== this.state.dimension) {
@@ -74,6 +76,9 @@ class Overview2 extends Component {
 
         value1 = (value1) ? JSON.parse(value1) : (data.dsname === 'calendar' ? defaultValue1 : defaultValue1f)
         value2 = (value2) ? JSON.parse(value2) : (data.dsname === 'calendar' ? defaultValue2 : defaultValue2f)
+
+      //  console.log(value1)
+      //  console.log(value2)
 
         if (value1.group && value1.group === groupAll) {
             value1.group = null
@@ -97,13 +102,15 @@ class Overview2 extends Component {
                 : this.state.value2.options
             : []
 
-        this.setState({
+       this.setState({
             ...this.state,
             value1,
             value2
-        }
+        })
 
-        )
+
+
+
     }
 
     onDimensionChange     = (e, i, v) => this.update({ ...this.state, dimension: v })

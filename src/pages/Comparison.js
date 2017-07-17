@@ -215,7 +215,9 @@ class Comparison extends Component {
             }))
 
 
-            tableSet = dimGroup1.top(Infinity).map(i => ({
+            tableSet = dimGroup1.top(Infinity).map(i => (
+
+                {
                 key: i.key,
                 value: {
                     ...i.value,
@@ -231,10 +233,14 @@ class Comparison extends Component {
                 tableSet = tableSet.filter((row) => filter.filters[dimension][0].indexOf(row.key) > -1)
             }
 
+            console.log(tableSet)
 
             totalSet = tableSet.reduce((k, v) => {
+
+                var v1 = k.value1 + +v.value.value1 || 0
+
                 return {
-                    value1: k.value1 + +v.value.value1 || 0,
+                    value1: v1,
                     value2: k.value2 + +v.value.value2 || 0,
                     sum: k.sum + (v.value.value2 - v.value.value1)
                 }

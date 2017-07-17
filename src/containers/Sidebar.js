@@ -69,31 +69,29 @@ class Sidebar extends Component {
 
 
 
-    onDatasetChange = (dsname) => {
+  /*  onDatasetChange = (dsname) => {
 
         console.log(" data set change requested to " + dsname)
 
         this.props.onDatasetChange(dsname)
 
 
-    }
+    }*/
 
     getColor = (dsname) => {
 
-
-       if (!this.props.dsname) {
+       if (!this.props.location.query.dsname) {
           if (dsname === 'calendar')  {
               return 'darkblue';
           }
           else {return null;}
        }
        else {
-           if (this.props.dsname === dsname)  {
+           if (this.props.location.query.dsname === dsname)  {
                return 'darkblue';
            }
            else {return null;}
        }
-
 
     }
 
@@ -180,7 +178,7 @@ hideCalendarDate={true}
             <Subheader className="subheader">datasets</Subheader>
             <div className="views">
                 <Menu>
-                    <Link   ><MenuItem  onTouchTap={ () => this.onDatasetChange('calendar')}
+               {/*     <Link   ><MenuItem  onTouchTap={ () => this.onDatasetChange('calendar')}
                         primaryText="Calendar" leftIcon={<Attachment className="icon"/>}
                     style={{backgroundColor: this.getColor('calendar') }}
                     /></Link>
@@ -188,7 +186,24 @@ hideCalendarDate={true}
                                       primaryText="Fiscal" leftIcon={<Attachment className="icon"/>}
                    style={{backgroundColor: this.getColor('fiscal') }}
 
-                    /></Link>
+                    /></Link>*/}
+
+                    <Link
+                        to={{pathname: "/overview", query: {...query, dsname: 'calendar'} }}>
+                        <MenuItem
+                        style={{backgroundColor: this.getColor('calendar') }}
+                        primaryText="calendar" leftIcon={<Attachment className="icon"/>} />
+
+                    </Link>
+                    <Link
+                        to={{pathname: "/overview", query: {...query, dsname: 'fiscal'} }}>
+                        <MenuItem
+                            style={{backgroundColor: this.getColor('fiscal') }}
+                            primaryText="fiscal" leftIcon={<Attachment className="icon"/>} />
+
+                    </Link>
+
+
                 </Menu>
             </div>
 

@@ -46,11 +46,13 @@ class Data extends Component {
                     console.log(error);
                 }
 
-               // console.log(data)
+
 
                 if (typeof preprocessor === 'function') {
-                    data = preprocessor(data)
+                    data = preprocessor(data, dsname, order)
                 }
+
+              /////  console.log(data)
 
                 const dataset = crossfilter(data)
                 const objects = dimensions.reduce((v, i) => {

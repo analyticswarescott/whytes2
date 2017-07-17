@@ -52,6 +52,10 @@ class App extends Component {
             this.props.params.dsname = 'calendar';
         }
 
+        if (! props.location.query.dsname) {
+            props.location.query.dsname= 'calendar';
+        }
+
     }
 
     componentWillMount() {
@@ -84,7 +88,7 @@ class App extends Component {
 
     render() {
 
-        var dsname = (this.state.dsname==null ? 'calendar' : this.state.dsname);
+        var dsname = (!this.props.location.query.dsname) ? 'calendar' : this.props.location.query.dsname;
 
         var ds2 = require('../../public/config.json');
 
@@ -96,7 +100,7 @@ class App extends Component {
            }
        }
 
-        console.log(this.state.showSidebar)
+        //console.log(this.state.showSidebar)
         return (
         <MuiThemeProvider muiTheme={theme}>
             <Data

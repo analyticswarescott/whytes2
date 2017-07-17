@@ -16,34 +16,71 @@ export const createTermsFilter = (terms) => {
  * @param  {Date}     toDate
  * @return {Function}
  */
-export const createDateFilter = (fromDate, toDate, isYtd) => {
+
+export const createDateFilter = (dsname, fromDate, toDate, isYtd) => {
+
+    //console.log(" creating date filter for ds " + dsname)
     if (isYtd) {
-        toDate = new Date()
+        var d = new Date()
+
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var day = d.getDate();
+
+        if (dsname === 'fiscal') {
+            //console.log('fiscal for curr month ' + month)
+
+
+            month = month -1
+            year = year + 1
+         }
+
+        var c = new Date(year, month, 2)
+
+        //console.log(c)
+        toDate = c;
+
     }
 
-    const toMonth = toDate.getMonth()
 
+
+    var i =0;
+    var j =0;
     return (!isYtd) ?
         [ fromDate, toDate ]
         : (d) => {
+
+            const toMonth = toDate.getMonth()
+            var ret
 
             if (d.getFullYear() > toDate.getFullYear()) {
                 return false
             }
 
-            const month = d.getMonth()
+
+            var month = d.getMonth()
 
             if (month <= toMonth) {
-                return (month < toMonth
+
+                ret =  (month < toMonth
                     || d.getDate() <= toDate.getDate()
                 )
             }
+            else {
+                ret = false
+            }
 
-            return false
+
+            return ret
         }
 }
 
-export const applyFilters = (dimensions, oldFilters, newFilters) => {
+export const applyFilters = (dsname, dimensions, oldFilters, newFilters) => {
+
+   // console.log(" applyFilters applying: ====")
+   // console.log(oldFilters)
+    //console.log(newFilters)
+
     Object.keys(dimensions).forEach(d => {
         const oldFilter = JSON.stringify(oldFilters[d] || {})
         const newFilter = JSON.stringify(newFilters[d] || {})
@@ -65,7 +102,11 @@ export const applyFilters = (dimensions, oldFilters, newFilters) => {
         if (Array.isArray(filter)) {
             if (d === DATE_DIMENSION) {
 
-                filter = createDateFilter(...filter)
+                filter = createDateFilter(dsname, ...filter)
+
+               // console.log("DATE FILTER CREATED")
+              //  console.log(filter)
+
             } else if (Array.isArray(filter[0])) {
                 filter = createTermsFilter(filter[0])
             }

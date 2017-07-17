@@ -99,7 +99,9 @@ class Sidebar extends Component {
 
     getColorView= (pathname) => {
 
-        if (!this.props.location.pathname) {
+        //console.log(this.props)
+
+        if (!this.props.location.pathname || this.props.location.pathname==='/') {
             if (pathname === '/overview')  {
                 return 'darkblue';
             }

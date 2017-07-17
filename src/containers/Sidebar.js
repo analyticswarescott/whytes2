@@ -48,6 +48,8 @@ class Sidebar extends Component {
         const filter = props.filter.filters._date || null
 
 
+       // console.log(props)
+
         let fromDate = min
         let toDate   = max
         let isYtd    = true
@@ -92,6 +94,23 @@ class Sidebar extends Component {
            }
            else {return null;}
        }
+
+    }
+
+    getColorView= (pathname) => {
+
+        if (!this.props.location.pathname) {
+            if (pathname === '/overview')  {
+                return 'darkblue';
+            }
+            else {return null;}
+        }
+        else {
+            if (this.props.location.pathname === pathname)  {
+                return 'darkblue';
+            }
+            else {return null;}
+        }
 
     }
 
@@ -210,9 +229,15 @@ hideCalendarDate={true}
             <Subheader className="subheader">views</Subheader>
             <div className="views">
                 <Menu>
-                    <Link to={{pathname: "/overview", query: query}}><MenuItem primaryText="Overview" leftIcon={<Dashboard className="icon"/>} /></Link>
-                    <Link to={{pathname: "/comparison", query: query}}><MenuItem primaryText="Comparison" leftIcon={<InsertChart className="icon"/>} /></Link>
-                    <Link to={{pathname: "/export", query: query}}><MenuItem primaryText="Export" leftIcon={<MoveToInbox className="icon"/>} /></Link>
+                    <Link to={{pathname: "/overview", query: query}}><MenuItem
+                        style={{backgroundColor: this.getColorView('/overview') }}
+                        primaryText="Overview" leftIcon={<Dashboard className="icon"/>} /></Link>
+                    <Link to={{pathname: "/comparison", query: query}}><MenuItem
+                        style={{backgroundColor: this.getColorView('/comparison') }}
+                        primaryText="Comparison" leftIcon={<InsertChart className="icon"/>} /></Link>
+                    <Link to={{pathname: "/export", query: query}}><MenuItem
+                        style={{backgroundColor: this.getColorView('/export') }}
+                        primaryText="Export" leftIcon={<MoveToInbox className="icon"/>} /></Link>
                 </Menu>
             </div>
             <Subheader className="subheader">filters</Subheader><br/>

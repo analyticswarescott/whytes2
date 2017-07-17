@@ -16,7 +16,7 @@ class Totals extends Component {
                 <div className="col-sm-2"> { value(value1) }</div>
                 <div className="col-sm-3"> { value(value2) }</div>
                 <div className="col-sm-2"> { value(sum) }</div>
-                <div className="col-sm-2"> { percentage + ' %'} </div>
+                <div className="col-sm-2"> { percentage} </div>
         </div>)
 	}
 }

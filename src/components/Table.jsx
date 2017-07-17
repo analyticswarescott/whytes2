@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {addCommas, intToString} from '../helpers/comparison'
 
 import {Table as MuiTable, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
@@ -63,7 +64,8 @@ class Table extends Component {
         const { key, column, type } = this.state
 
         const data  = this.order(this.props.set, column, key, type, this.props.order || null)
-        const value = (v) => v.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+       // const value = (v) => v.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+        const value = (v) => addCommas(v)
 
         return (
         <MuiTable className='table'  >

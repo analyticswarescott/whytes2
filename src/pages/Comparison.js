@@ -24,6 +24,9 @@ const groupAll = 'All'
 const defaultDimension = 'Month'
 const defaultValue1 = { measure: 'Gross_Sales', group : 'Year', options: [], filter: '2016' }
 const defaultValue2 = { measure: 'Gross_Sales', group : 'Year', options: [], filter: '2017' }
+const defaultValue1f = { measure: 'Gross_Sales', group : 'Year', options: [], filter: '2017' }
+const defaultValue2f = { measure: 'Gross_Sales', group : 'Year', options: [], filter: '2018' }
+
 
 const getOptions = (dimension) => {
     const group = dimension.group()
@@ -74,8 +77,8 @@ class Comparison extends Component {
 
         let { value1, value2 } = location.query
 
-        value1 = (value1) ? JSON.parse(value1) : defaultValue1
-        value2 = (value2) ? JSON.parse(value2) : defaultValue2
+        value1 = (value1) ? JSON.parse(value1) : (data.dsname === 'calendar' ? defaultValue1 : defaultValue1f)
+        value2 = (value2) ? JSON.parse(value2) : (data.dsname === 'calendar' ? defaultValue2 : defaultValue2f)
 
         if (value1.group && value1.group === groupAll) {
             value1.group = null
@@ -238,6 +241,7 @@ class Comparison extends Component {
             totalSet = tableSet.reduce((k, v) => {
 
                 var v1 = k.value1 + +v.value.value1 || 0
+               // v1 = v1.toFixed(0).toString()
 
                 return {
                     value1: v1,

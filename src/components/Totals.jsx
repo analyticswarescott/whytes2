@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
+import {addCommas, intToString, getIndex} from '../helpers/comparison'
 
 class Totals extends Component {
 	render() {
         const { value1, value2 } = this.props
         const sum        = value2 - value1
-        const percentage = Math.round((((value1 - value2) / value1) * 100) * -1)
+       // const percentage = Math.round((((value1 - value2) / value1) * 100) * -1)
+        const percentage = getIndex(value1, value2, 1);
 
-        const value = (v) => v.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
+        const value = (v) => addCommas(v)
 
 		return (
 			<div className="row totals">
